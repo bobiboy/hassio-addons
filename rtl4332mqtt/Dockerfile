@@ -27,12 +27,21 @@ RUN apk add --no-cache --virtual build-deps alpine-sdk cmake git libusb-dev && \
     make && \
     make install && \
     chmod +s /usr/local/bin/rtl_* && \
+    apk add --no-cache swig libavahi-client-dev && \
+    cd /tmp/src/ && \
+    git clone https://github.com/pothosware/SoapySDR.git && \
+    cd SoapySDR/ && \
+    mkdir build && \
+    cd build && \
+    cmake ../ && \
+    make && \
+    make install && \
     cd /tmp/src/ && \
     git clone https://github.com/merbanan/rtl_433 && \
     cd rtl_433/ && \
     mkdir build && \
     cd build && \
-    cmake ../ && \
+    cmake -DENABLE_SOAPYSDR=ON ../ && \
     make && \
     make install && \
     apk del build-deps && \
