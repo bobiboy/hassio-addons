@@ -33,7 +33,7 @@ RUN apk add --no-cache --virtual build-deps alpine-sdk cmake git libusb-dev wget
     chmod +x *.run && \
     ./SDRplay_RSP_API-RPi-2.13.1.run --noexec --keep && \
     cd package && \
-    sed -i -n '1,4p;16,$p' install_lib.sh && \
+    sed -i -n '1,4p;17,$p' install_lib.sh && \
     sed -i 's/sudo / /g' install_lib.sh && \
     sed -i 's/\/sbin\/ldconfig -p | \/bin\/fgrep -q libusb-1.0/true/g' install_lib.sh && \
     ./install_lib.sh && \
