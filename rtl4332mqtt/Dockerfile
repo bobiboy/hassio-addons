@@ -17,17 +17,27 @@ LABEL Description="This image is used to start a script that will monitor for RF
 #
 # First install software packages needed to compile rtl_433 and to publish MQTT events
 #
-RUN apk add --no-cache --virtual build-deps alpine-sdk cmake git libusb-dev && \
+RUN apk add --no-cache --virtual build-deps alpine-sdk cmake git libusb-dev wget && \
+    apk add --no-cache --virtual libudev-dev udev && \
     mkdir /tmp/src && \
-    cd /tmp/src && \
+    cd /tmp/src && \ 
     git clone git://git.osmocom.org/rtl-sdr.git && \
     mkdir /tmp/src/rtl-sdr/build && \
     cd /tmp/src/rtl-sdr/build && \
     cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON -DCMAKE_INSTALL_PREFIX:PATH=/usr/local && \
     make && \
     make install && \
-    chmod +s /usr/local/bin/rtl_* && \
-    apk add --no-cache swig libavahi-client-dev && \
+    chmod +s /usr/local/bin/rtl_* && \   
+    cd /tmp/src && \
+    wget http://www.sdrplay.com/software/SDRplay_RSP_API-Linux-2.13.1.run && \
+    chmod +x *.run && \
+    ./SDRplay_RSP_API-Linux-2.13.1.run --noexec --keep && \
+    cd package && \
+    sed -i -n '1,4p;16,$p' install_lib.sh && \
+    sed -i 's/sudo / /g' install_lib.sh && \
+    sed -i 's/\/sbin\/ldconfig -p | \/bin\/fgrep -q libusb-1.0/true/g' install_lib.sh && \
+    ./install_lib.sh && \
+    apk add --no-cache --virtual libavahi-client-dev swig && \
     cd /tmp/src/ && \
     git clone https://github.com/pothosware/SoapySDR.git && \
     cd SoapySDR/ && \
