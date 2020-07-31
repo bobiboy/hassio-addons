@@ -8,7 +8,8 @@
   "udev":true,
   "boot": "auto",
   "map": ["config:rw", "ssl"],
-  "devices": ["/dev/bus/usb/001/009:/dev/bus/usb/001/009:rwm"],
+  "privileged": ["SYS_ADMIN", "SYS_RAWIO", "SYS_RESOURCE"],
+  "full_access": true,
   "host_network": "False",
   "stage":"experimental",
   "arch": [
