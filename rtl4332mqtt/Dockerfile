@@ -47,6 +47,14 @@ RUN apk add --no-cache --virtual build-deps alpine-sdk cmake git libusb-dev wget
     make && \
     make install && \
     cd /tmp/src/ && \
+    git clone https://github.com/pothosware/SoapySDRPlay.git && \
+    cd SoapySDRPlay/ && \
+    mkdir build && \
+    cd build && \
+    cmake ../ && \
+    make && \
+    make install && \
+    cd /tmp/src/ && \
     git clone https://github.com/merbanan/rtl_433 && \
     cd rtl_433/ && \
     mkdir build && \
