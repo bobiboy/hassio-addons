@@ -29,9 +29,9 @@ RUN apk add --no-cache --virtual build-deps alpine-sdk cmake git libusb-dev wget
     make install && \
     chmod +s /usr/local/bin/rtl_* && \   
     cd /tmp/src && \
-    wget http://www.sdrplay.com/software/SDRplay_RSP_API-Linux-2.13.1.run && \
+    wget https://www.sdrplay.com/software/SDRplay_RSP_API-RPi-2.13.1.run && \
     chmod +x *.run && \
-    ./SDRplay_RSP_API-Linux-2.13.1.run --noexec --keep && \
+    ./SDRplay_RSP_API-RPi-2.13.1.run --noexec --keep && \
     cd package && \
     sed -i -n '1,4p;16,$p' install_lib.sh && \
     sed -i 's/sudo / /g' install_lib.sh && \
